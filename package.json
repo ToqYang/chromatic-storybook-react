@@ -1,7 +1,27 @@
 {
-  "name": "my-storybook",
+  "name": "ty-my-storybook-components",
   "version": "0.1.0",
   "private": true,
+  "typings": "dist/index.d.js",
+  "main": "dist/index.d.js",
+  "homepage": "",
+  "repository": {
+    "url": "https://github.com/ToqYang/chromatic-storybook-react",
+    "type": "git"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "typeScript": ">4.0.0"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -19,12 +39,14 @@
   },
   "scripts": {
     "start": "start-storybook -p 6006",
-    "build": "build-storybook",
+    "build": "yarn clean && tsc && yarn copy-files",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
+    "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN",
+    "clean": "rimraf dist/",
+    "copy-files": "copyfiles -u 1 src/**/*.css dist/"
   },
   "eslintConfig": {
     "extends": [
@@ -53,7 +75,18 @@
     "@storybook/react": "^6.4.3",
     "babel-loader": "^8.2.3",
     "chromatic": "^6.1.0",
+    "copyfiles": "^2.4.1",
     "css-loader": "^6.5.1",
-    "postcss": "^8.4.4"
-  }
+    "postcss": "^8.4.4",
+    "rimraf": "^3.0.2",
+    "semantic-release": "^18.0.1"
+  },
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    "@semantic-release/github",
+    "@semantic-release/npm",
+    "@semantic-release/git"
+  ]
 }
